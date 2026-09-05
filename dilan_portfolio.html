@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dilan Kanishka | Professional Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Poppins & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Tailwind Config for Custom Colors/Fonts -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#3b82f6',    /* Blue 500 */
+                        secondary: '#1d4ed8',  /* Blue 700 */
+                        dark: '#0f172a',       /* Slate 900 */
+                        light: '#f8fafc',      /* Slate 50 */
+                        accent: '#8b5cf6'      /* Violet 500 */
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles for extra polish */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+        
+        /* Glassmorphism Navbar */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%);
+        }
+
+        /* Card Hover Effects */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: #3b82f6;
+        }
+        
+        /* Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid #e0e7ff;
+            border-bottom-color: #3b82f6;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Timeline line styling */
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: #e2e8f0;
+            border-radius: 4px;
+        }
+        @media (max-width: 768px) {
+            .timeline-line {
+                left: 20px;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased selection:bg-primary selection:text-white">
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="glass-nav fixed w-full z-50 top-0 transition-all duration-300 shadow-sm" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#home" class="text-2xl font-bold font-heading text-dark tracking-tight">
+                        Dilan<span class="text-primary">.</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="text-slate-600 hover:text-primary transition-colors font-medium text-sm uppercase tracking-wider relative group">
+                        Home
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#about" class="text-slate-600 hover:text-primary transition-colors font-medium text-sm uppercase tracking-wider relative group">
+                        About
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#skills" class="text-slate-600 hover:text-primary transition-colors font-medium text-sm uppercase tracking-wider relative group">
+                        Skills
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#education" class="text-slate-600 hover:text-primary transition-colors font-medium text-sm uppercase tracking-wider relative group">
+                        Education
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#contact" class="bg-primary text-white px-6 py-2.5 rounded-full hover:bg-secondary hover:shadow-lg hover:-translate-y-0.5 transform transition-all duration-300 font-medium text-sm uppercase tracking-wider">
+                        Contact Me
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-primary focus:outline-none p-2 transition-colors">
+                        <i class="fas fa-bars text-2xl" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-slate-100 absolute w-full shadow-xl transition-all duration-300 origin-top transform scale-y-0 opacity-0">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col text-center">
+                <a href="#home" class="mobile-link block px-3 py-3 rounded-xl text-base font-semibold text-slate-700 hover:text-primary hover:bg-blue-50 transition-colors">Home</a>
+                <a href="#about" class="mobile-link block px-3 py-3 rounded-xl text-base font-semibold text-slate-700 hover:text-primary hover:bg-blue-50 transition-colors">About</a>
+                <a href="#skills" class="mobile-link block px-3 py-3 rounded-xl text-base font-semibold text-slate-700 hover:text-primary hover:bg-blue-50 transition-colors">Skills</a>
+                <a href="#education" class="mobile-link block px-3 py-3 rounded-xl text-base font-semibold text-slate-700 hover:text-primary hover:bg-blue-50 transition-colors">Education</a>
+                <a href="#contact" class="mobile-link block px-3 py-3 rounded-xl text-base font-semibold text-white bg-primary hover:bg-secondary transition-colors mt-2">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient min-h-screen flex items-center pt-20 overflow-hidden relative">
+        <!-- Abstract Animated Background Blobs -->
+        <div class="absolute top-20 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob"></div>
+        <div class="absolute top-40 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob" style="animation-delay: 2s;"></div>
+        <div class="absolute -bottom-8 left-1/2 w-72 h-72 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob" style="animation-delay: 4s;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 py-12 md:py-20">
+            <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-12 lg:gap-20">
+                
+                <!-- Text Content -->
+                <div class="w-full md:w-3/5 text-center md:text-left" data-aos="fade-right" data-aos-duration="1000">
+                    <span class="inline-block py-1 px-3 rounded-full bg-blue-100 text-primary font-semibold tracking-wider uppercase text-xs mb-6 border border-blue-200 shadow-sm">
+                        Welcome to my portfolio
+                    </span>
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold font-heading text-dark leading-tight mb-6">
+                        Hi, I'm <br/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-600 to-accent">Dilan Kanishka</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-600 mb-8 max-w-2xl mx-auto md:mx-0 leading-relaxed font-light">
+                        A hardworking and detail-oriented professional with strong administrative skills. Eager to bring value to project operations and organizational teams.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <a href="#contact" class="bg-primary text-white px-8 py-3.5 rounded-full hover:bg-secondary hover:-translate-y-1 hover:shadow-xl transition-all duration-300 font-semibold text-center flex items-center justify-center gap-2 group">
+                            <i class="fas fa-paper-plane group-hover:animate-bounce"></i> Hire Me
+                        </a>
+                        <a href="#about" class="bg-white text-slate-700 border border-slate-200 px-8 py-3.5 rounded-full hover:bg-slate-50 hover:-translate-y-1 hover:shadow-md transition-all duration-300 font-semibold text-center">
+                            Explore My Work
+                        </a>
+                    </div>
+                    
+                    <!-- Quick Contact Info in Hero -->
+                    <div class="mt-10 flex flex-wrap justify-center md:justify-start gap-6 text-sm text-slate-500 font-medium">
+                        <span class="flex items-center gap-2"><i class="fas fa-map-marker-alt text-primary"></i> Anamaduwa, Sri Lanka</span>
+                        <span class="flex items-center gap-2"><i class="fas fa-phone-alt text-primary"></i> 077 9922985</span>
+                    </div>
+                </div>
+
+                <!-- Profile Image / Graphic -->
+                <div class="w-full md:w-2/5 flex justify-center" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80 xl:w-96 xl:h-96 group">
+                        <!-- Decorative background frame -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-primary to-accent rounded-[2rem] shadow-2xl transform rotate-6 scale-105 group-hover:rotate-12 transition-transform duration-500"></div>
+                        <!-- Main Image Placeholder (Initials) -->
+                        <div class="relative z-10 w-full h-full bg-white rounded-[2rem] border-8 border-white shadow-lg overflow-hidden flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-200">
+                            <!-- Replace src below with your actual image if you have one. Eg: <img src="images/dilan.jpg" class="w-full h-full object-cover" alt="Dilan"> -->
+                            <div class="text-center">
+                                <span class="text-7xl font-bold font-heading text-slate-300">DK</span>
+                                <p class="text-slate-400 font-medium mt-2">Dilan Kanishka</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Floating badge -->
+                        <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-xl z-20 flex items-center gap-3 animate-bounce" style="animation-duration: 3s;">
+                            <div class="bg-green-100 text-green-600 w-10 h-10 rounded-full flex items-center justify-center text-lg">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-500 font-medium uppercase">Status</p>
+                                <p class="text-sm font-bold text-dark">Available for Work</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce" style="animation-duration: 2s;">
+            <span class="text-xs text-slate-400 font-medium mb-2 uppercase tracking-widest">Scroll Down</span>
+            <a href="#about" class="w-8 h-12 border-2 border-slate-300 rounded-full flex justify-center p-1 hover:border-primary transition-colors">
+                <div class="w-1.5 h-3 bg-primary rounded-full opacity-70"></div>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header -->
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold font-heading text-dark mb-4 inline-block relative">
+                    About Me
+                    <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-16 h-1.5 bg-primary rounded-full"></span>
+                </h2>
+                <p class="text-slate-500 max-w-2xl mx-auto mt-6">Get to know my professional background, experience, and personal details.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Summary Text (Left Column) -->
+                <div class="lg:col-span-7 space-y-8" data-aos="fade-right" data-aos-delay="100">
+                    
+                    <div class="bg-slate-50 p-8 md:p-10 rounded-3xl border border-slate-100 shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
+                        <!-- Quote Icon Background -->
+                        <div class="absolute -top-4 -right-4 p-4 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity transform group-hover:scale-110 duration-500">
+                            <i class="fas fa-quote-right text-9xl text-primary"></i>
+                        </div>
+                        
+                        <h3 class="text-2xl font-bold font-heading text-dark mb-6 flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-blue-100 text-primary flex items-center justify-center text-lg">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            Professional Summary
+                        </h3>
+                        
+                        <div class="space-y-4 text-slate-600 leading-relaxed text-lg font-light relative z-10">
+                            <p>
+                                I am a hardworking and detail-oriented individual with strong computer and Microsoft Office skills. I am highly capable of maintaining records, handling documentation, data entry, and coordinating administrative activities.
+                            </p>
+                            <p>
+                                Eager to develop a career in administration and project operations, I am a quick learner with the ability to work responsibly and adapt rapidly to any work-site environment.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Additional Info Cards Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="bg-white border border-slate-200 p-6 rounded-2xl flex items-start gap-4 hover:border-primary hover:shadow-lg transition-all transform hover:-translate-y-1">
+                            <div class="bg-primary text-white w-12 h-12 rounded-xl flex items-center justify-center text-xl shadow-md shrink-0">
+                                <i class="fas fa-motorcycle"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-dark font-heading">Mobility</h4>
+                                <p class="text-sm text-slate-500 mt-1 leading-snug">Possess a valid Sri Lankan Motorcycle Driving License</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white border border-slate-200 p-6 rounded-2xl flex items-start gap-4 hover:border-accent hover:shadow-lg transition-all transform hover:-translate-y-1">
+                            <div class="bg-accent text-white w-12 h-12 rounded-xl flex items-center justify-center text-xl shadow-md shrink-0">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-dark font-heading">Flexibility</h4>
+                                <p class="text-sm text-slate-500 mt-1 leading-snug">Willing to work at the Nikaweratiya project site</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personal Details List (Right Column) -->
+                <div class="lg:col-span-5" data-aos="fade-left" data-aos-delay="200">
+                    <div class="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-100 p-8 md:p-10 h-full">
+                        <h3 class="text-2xl font-bold font-heading text-dark mb-8 pb-4 border-b border-slate-100">Personal Details</h3>
+                        
+                        <ul class="space-y-6">
+                            <li class="flex items-center gap-5 group">
+                                <div class="w-14 h-14 rounded-2xl bg-slate-50 group-hover:bg-primary group-hover:text-white transition-colors duration-300 flex items-center justify-center text-primary text-xl flex-shrink-0 shadow-sm border border-slate-100">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">Date of Birth</span>
+                                    <span class="block text-lg font-medium text-slate-800">2001 / 09 / 05</span>
+                                </div>
+                            </li>
+                            
+                            <li class="flex items-center gap-5 group">
+                                <div class="w-14 h-14 rounded-2xl bg-slate-50 group-hover:bg-primary group-hover:text-white transition-colors duration-300 flex items-center justify-center text-primary text-xl flex-shrink-0 shadow-sm border border-slate-100">
+                                    <i class="fas fa-language"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">Languages</span>
+                                    <span class="block text-lg font-medium text-slate-800">Sinhala, English <span class="text-slate-400 text-sm">(Basic)</span></span>
+                                </div>
+                            </li>
+                            
+                            <li class="flex items-center gap-5 group">
+                                <div class="w-14 h-14 rounded-2xl bg-slate-50 group-hover:bg-primary group-hover:text-white transition-colors duration-300 flex items-center justify-center text-primary text-xl flex-shrink-0 shadow-sm border border-slate-100">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">Civil Status</span>
+                                    <span class="block text-lg font-medium text-slate-800">Unmarried</span>
+                                </div>
+                            </li>
+                            
+                            <li class="flex items-center gap-5 group">
+                                <div class="w-14 h-14 rounded-2xl bg-slate-50 group-hover:bg-primary group-hover:text-white transition-colors duration-300 flex items-center justify-center text-primary text-xl flex-shrink-0 shadow-sm border border-slate-100">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">Location</span>
+                                    <span class="block text-lg font-medium text-slate-800 leading-snug">Kottukachchiya,<br/>Anamaduwa, Sri Lanka</span>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                        <div class="mt-10 pt-8 border-t border-slate-100 text-center">
+                            <a href="#contact" class="text-primary font-semibold hover:text-secondary inline-flex items-center gap-2 group transition-colors">
+                                Get in touch with me <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 bg-slate-50 relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 30px 30px;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Section Header -->
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold font-heading text-dark mb-4 inline-block relative">
+                    My Skills
+                    <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-16 h-1.5 bg-primary rounded-full"></span>
+                </h2>
+                <p class="text-slate-500 max-w-2xl mx-auto mt-6">Core competencies and administrative proficiencies I bring to the table.</p>
+            </div>
+
+            <!-- Skills Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Skill 1 -->
+                <div class="card-hover bg-white p-8 rounded-3xl shadow-sm border border-slate-100 text-center group" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="w-20 h-20 mx-auto bg-blue-50 text-primary rounded-2xl flex items-center justify-center text-4xl mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-300 transform group-hover:rotate-6">
+                        <i class="fab fa-microsoft"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-heading text-dark mb-3">Microsoft Office</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Proficient in Word, Excel, and other office tools for documentation and data analysis.</p>
+                </div>
+
+                <!-- Skill 2 -->
+                <div class="card-hover bg-white p-8 rounded-3xl shadow-sm border border-slate-100 text-center group" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="w-20 h-20 mx-auto bg-blue-50 text-primary rounded-2xl flex items-center justify-center text-4xl mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-300 transform group-hover:rotate-6">
+                        <i class="fas fa-keyboard"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-heading text-dark mb-3">Data Entry</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Accurate and efficient data entry with a strong focus on precise record keeping.</p>
+                </div>
+
+                <!-- Skill 3 -->
+                <div class="card-hover bg-white p-8 rounded-3xl shadow-sm border border-slate-100 text-center group" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="w-20 h-20 mx-auto bg-blue-50 text-primary rounded-2xl flex items-center justify-center text-4xl mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-300 transform group-hover:rotate-6">
+                        <i class="fas fa-folder-open"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-heading text-dark mb-3">Document Mgmt</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Organizing, storing, and managing physical and digital documents effectively.</p>
+                </div>
+
+                <!-- Skill 4 -->
+                <div class="card-hover bg-white p-8 rounded-3xl shadow-sm border border-slate-100 text-center group" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="w-20 h-20 mx-auto bg-blue-50 text-primary rounded-2xl flex items-center justify-center text-4xl mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-300 transform group-hover:rotate-6">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-heading text-dark mb-3">Computer Apps</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Solid grasp of basic computing, software navigation, and internet applications.</p>
+                </div>
+
+                <!-- Skill 5 -->
+                <div class="card-hover bg-white p-8 rounded-3xl shadow-sm border border-slate-100 text-center group" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="w-20 h-20 mx-auto bg-blue-50 text-primary rounded-2xl flex items-center justify-center text-4xl mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-300 transform group-hover:rotate-6">
+                        <i class="fas fa-file-archive"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-heading text-dark mb-3">File Management</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Systematic approach to archiving, categorizing, and rapidly retrieving files.</p>
+                </div>
+
+                <!-- Skill 6 -->
+                <div class="card-hover bg-white p-8 rounded-3xl shadow-sm border border-slate-100 text-center group" data-aos="zoom-in" data-aos-delay="600">
+                    <div class="w-20 h-20 mx-auto bg-blue-50 text-primary rounded-2xl flex items-center justify-center text-4xl mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-300 transform group-hover:rotate-6">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-heading text-dark mb-3">Communication</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Handling professional email correspondence and internal team communications.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Qualifications Section -->
+    <section id="education" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header -->
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold font-heading text-dark mb-4 inline-block relative">
+                    Education & Qualifications
+                    <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-16 h-1.5 bg-primary rounded-full"></span>
+                </h2>
+                <p class="text-slate-500 max-w-2xl mx-auto mt-6">My academic journey and professional certifications.</p>
+            </div>
+
+            <!-- Main Layout for Education -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Qualifications / Certifications (Left/Top) -->
+                <div class="lg:col-span-4" data-aos="fade-right">
+                    <div class="bg-gradient-to-br from-primary to-secondary text-white rounded-3xl p-8 shadow-xl h-full relative overflow-hidden group">
+                        <!-- Decorative Circles -->
+                        <div class="absolute -top-16 -right-16 w-48 h-48 bg-white opacity-10 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-700"></div>
+                        <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-white opacity-10 rounded-full blur-xl"></div>
+                        
+                        <h3 class="text-2xl font-bold font-heading mb-8 flex items-center gap-3 border-b border-blue-400 pb-4">
+                            <i class="fas fa-award text-yellow-300"></i> Certifications
+                        </h3>
+                        
+                        <div class="mt-6 flex flex-col gap-6">
+                            <div class="bg-white/10 backdrop-blur-sm border border-white/20 p-5 rounded-2xl hover:bg-white/20 transition-colors">
+                                <div class="w-12 h-12 bg-white text-primary rounded-xl flex items-center justify-center text-xl mb-4 shadow-sm">
+                                    <i class="fas fa-laptop-code"></i>
+                                </div>
+                                <h4 class="text-xl font-bold font-heading">Certificate in Information Technology</h4>
+                                <div class="flex items-center gap-2 mt-3 text-blue-100 text-sm">
+                                    <i class="fas fa-university"></i>
+                                    <span>VTA Computer Academy, Puttalam</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Academic Timeline (Right/Bottom) -->
+                <div class="lg:col-span-8 relative">
+                    <!-- Central Vertical Line -->
+                    <div class="timeline-line hidden md:block"></div>
+                    
+                    <div class="space-y-12">
+                        
+                        <!-- Timeline Item 1: A/L -->
+                        <div class="relative flex flex-col md:flex-row items-center justify-between group" data-aos="fade-up" data-aos-delay="100">
+                            <!-- Left Content (Empty for spacing on desktop) -->
+                            <div class="w-full md:w-5/12 hidden md:block text-right pr-8">
+                                <div class="text-3xl font-bold text-slate-200">2020</div>
+                            </div>
+                            
+                            <!-- Center Dot -->
+                            <div class="absolute left-5 md:left-1/2 transform -translate-x-1/2 w-10 h-10 bg-white border-4 border-primary rounded-full z-10 flex items-center justify-center shadow-lg group-hover:bg-primary transition-colors duration-300">
+                                <div class="w-3 h-3 bg-primary rounded-full group-hover:bg-white transition-colors duration-300"></div>
+                            </div>
+                            
+                            <!-- Right Content (Card) -->
+                            <div class="w-full pl-16 md:pl-0 md:w-5/12">
+                                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card-hover">
+                                    <span class="inline-block px-3 py-1 bg-blue-50 text-primary text-xs font-bold rounded-full mb-3 md:hidden">2020</span>
+                                    <h3 class="text-xl font-bold font-heading text-dark">G.C.E Advanced Level</h3>
+                                    <p class="text-slate-500 text-sm mt-1 flex items-center gap-2">
+                                        <i class="fas fa-school text-primary"></i> PU/ Amanaduwa Central College
+                                    </p>
+                                    
+                                    <div class="mt-4 pt-4 border-t border-slate-50">
+                                        <table class="w-full text-sm text-left">
+                                            <tbody>
+                                                <tr class="border-b border-slate-50">
+                                                    <td class="py-2 text-slate-600">Information & Comm. Technology</td>
+                                                    <td class="py-2 text-right font-bold text-dark">C</td>
+                                                </tr>
+                                                <tr class="border-b border-slate-50">
+                                                    <td class="py-2 text-slate-600">Science For Technology</td>
+                                                    <td class="py-2 text-right font-bold text-dark">C</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="py-2 text-slate-600">Engineering Technology</td>
+                                                    <td class="py-2 text-right font-bold text-dark">S</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Timeline Item 2: O/L -->
+                        <div class="relative flex flex-col md:flex-row items-center justify-between group" data-aos="fade-up" data-aos-delay="200">
+                            <!-- Left Content (Card for desktop) -->
+                            <div class="w-full pl-16 md:pl-0 md:w-5/12 order-2 md:order-1">
+                                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card-hover">
+                                    <span class="inline-block px-3 py-1 bg-blue-50 text-primary text-xs font-bold rounded-full mb-3 md:hidden">2017</span>
+                                    <h3 class="text-xl font-bold font-heading text-dark">G.C.E Ordinary Level</h3>
+                                    <p class="text-slate-500 text-sm mt-1 flex items-center gap-2">
+                                        <i class="fas fa-school text-primary"></i> PU/ Kottukachchiya Navodya M.V.
+                                    </p>
+                                    
+                                    <div class="mt-4 pt-4 border-t border-slate-50">
+                                        <div class="grid grid-cols-2 gap-x-4">
+                                            <table class="w-full text-xs sm:text-sm text-left">
+                                                <tbody>
+                                                    <tr class="border-b border-slate-50"><td class="py-1.5 text-slate-600">Catholic</td><td class="py-1.5 text-right font-bold text-green-600">A</td></tr>
+                                                    <tr class="border-b border-slate-50"><td class="py-1.5 text-slate-600">Health & PE</td><td class="py-1.5 text-right font-bold text-green-600">A</td></tr>
+                                                    <tr class="border-b border-slate-50"><td class="py-1.5 text-slate-600">Sinhala</td><td class="py-1.5 text-right font-bold text-blue-600">B</td></tr>
+                                                    <tr class="border-b border-slate-50"><td class="py-1.5 text-slate-600">History</td><td class="py-1.5 text-right font-bold text-blue-600">B</td></tr>
+                                                    <tr><td class="py-1.5 text-slate-600">Civil Edu.</td><td class="py-1.5 text-right font-bold text-blue-600">B</td></tr>
+                                                </tbody>
+                                            </table>
+                                            <table class="w-full text-xs sm:text-sm text-left">
+                                                <tbody>
+                                                    <tr class="border-b border-slate-50"><td class="py-1.5 text-slate-600">Mathematics</td><td class="py-1.5 text-right font-bold text-dark">C</td></tr>
+                                                    <tr class="border-b border-slate-50"><td class="py-1.5 text-slate-600">Science</td><td class="py-1.5 text-right font-bold text-dark">C</td></tr>
+                                                    <tr class="border-b border-slate-50"><td class="py-1.5 text-slate-600">Art</td><td class="py-1.5 text-right font-bold text-dark">C</td></tr>
+                                                    <tr><td class="py-1.5 text-slate-600">English</td><td class="py-1.5 text-right font-bold text-slate-500">S</td></tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Center Dot -->
+                            <div class="absolute left-5 md:left-1/2 transform -translate-x-1/2 w-10 h-10 bg-white border-4 border-primary rounded-full z-10 flex items-center justify-center shadow-lg group-hover:bg-primary transition-colors duration-300 order-1 md:order-2 top-0 md:top-auto">
+                                <div class="w-3 h-3 bg-primary rounded-full group-hover:bg-white transition-colors duration-300"></div>
+                            </div>
+                            
+                            <!-- Right Content (Date for desktop) -->
+                            <div class="w-full md:w-5/12 hidden md:block text-left pl-8 order-3">
+                                <div class="text-3xl font-bold text-slate-200">2017</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-slate-900 text-white relative overflow-hidden">
+        <!-- Abstract background elements -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-primary opacity-20 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-80 h-80 bg-accent opacity-20 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold font-heading text-white mb-4 inline-block relative">
+                    Get In Touch
+                    <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-16 h-1.5 bg-primary rounded-full"></span>
+                </h2>
+                <p class="text-slate-400 max-w-2xl mx-auto mt-6">Feel free to reach out for job opportunities or any administrative requirements.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Contact Card 1 -->
+                <div class="bg-slate-800/50 backdrop-blur-md p-8 rounded-2xl border border-slate-700 text-center hover:bg-slate-800 transition-colors" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 mx-auto bg-primary/20 text-primary rounded-full flex items-center justify-center text-2xl mb-5">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h4 class="text-lg font-semibold mb-2">Call Me</h4>
+                    <p class="text-slate-300 text-lg font-light">077 9922985</p>
+                </div>
+                
+                <!-- Contact Card 2 -->
+                <div class="bg-slate-800/50 backdrop-blur-md p-8 rounded-2xl border border-slate-700 text-center hover:bg-slate-800 transition-colors" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 mx-auto bg-primary/20 text-primary rounded-full flex items-center justify-center text-2xl mb-5">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h4 class="text-lg font-semibold mb-2">Email Me</h4>
+                    <a href="mailto:dilankanishka032@gmail.com" class="text-slate-300 text-sm font-light hover:text-primary transition-colors break-all">dilankanishka032@gmail.com</a>
+                </div>
+                
+                <!-- Contact Card 3 -->
+                <div class="bg-slate-800/50 backdrop-blur-md p-8 rounded-2xl border border-slate-700 text-center hover:bg-slate-800 transition-colors" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 mx-auto bg-primary/20 text-primary rounded-full flex items-center justify-center text-2xl mb-5">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h4 class="text-lg font-semibold mb-2">Location</h4>
+                    <p class="text-slate-300 text-sm font-light">Kottukachchiya,<br/>Anamaduwa, Sri Lanka</p>
+                </div>
+            </div>
+
+            <!-- Optional visual form placeholder -->
+            <div class="max-w-3xl mx-auto mt-16 bg-white rounded-3xl p-8 md:p-10 shadow-2xl" data-aos="zoom-in" data-aos-delay="400">
+                <form onsubmit="event.preventDefault(); alert('Message sending logic can be connected here!');" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Your Name</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all text-slate-800" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Your Email</label>
+                            <input type="email" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all text-slate-800" placeholder="john@example.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Message</label>
+                        <textarea rows="4" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all text-slate-800 resize-none" placeholder="How can I help you?"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-primary text-white py-4 rounded-xl font-bold text-lg hover:bg-secondary transition-colors shadow-lg shadow-blue-500/30">
+                        Send Message <i class="fas fa-paper-plane ml-2"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 py-8 border-t border-slate-800 text-center">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="font-light text-sm">
+                &copy; <span id="year"></span> Dilan Kanishka. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Set dynamic year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Handle Preloader & Initialize AOS
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            preloader.style.opacity = '0';
+            preloader.style.visibility = 'hidden';
+            
+            // Initialize Animation on Scroll
+            AOS.init({
+                duration: 800,
+                easing: 'ease-out-cubic',
+                once: true,
+                offset: 50,
+            });
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md');
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.style.background = 'rgba(255, 255, 255, 0.85)';
+            }
+        });
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const icon = document.getElementById('menu-icon');
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                menu.classList.remove('hidden');
+                // Small delay to allow display block to apply before animating opacity/transform
+                setTimeout(() => {
+                    menu.classList.remove('scale-y-0', 'opacity-0');
+                    menu.classList.add('scale-y-100', 'opacity-100');
+                }, 10);
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                menu.classList.remove('scale-y-100', 'opacity-100');
+                menu.classList.add('scale-y-0', 'opacity-0');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+                // Wait for animation to finish before hiding
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        btn.addEventListener('click', toggleMenu);
+
+        // Close mobile menu when a link is clicked
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if(isMenuOpen) toggleMenu();
+            });
+        });
+    </script>
+</body>
+</html>
